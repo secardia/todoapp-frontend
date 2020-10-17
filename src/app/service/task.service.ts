@@ -18,7 +18,11 @@ export class TaskService {
     return this.http.get<Task[]>(this.rootURL + '/tasks');
   }
  
-  public save(task: Task) {
+  public saveTask(task: Task) {
     return this.http.post<Task>(this.rootURL + '/addtask', task);
+  }
+
+  public deleteTask(id: number) {
+    return this.http.delete(this.rootURL + '/deletetask?taskId=' + id);
   }
 }

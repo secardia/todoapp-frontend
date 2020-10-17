@@ -6,6 +6,7 @@
             <th scope="col">#</th>
             <th scope="col">Task to do</th>
             <th scope="col">Done</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -13,6 +14,7 @@
             <td>{{ task.id }}</td>
             <td>{{ task.taskToDo }}</td>
             <td>{{ task.done }}</td>
+            <td><button (click)="deleteTask(task.id)" class="btn btn-danger">Delete task</button></td>
           </tr>
         </tbody>
       </table>
