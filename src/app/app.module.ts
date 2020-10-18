@@ -6,21 +6,22 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TaskListComponent } from './task-list/task-list.component';
-import { TaskService } from './service/task.service';
+import { NavListComponent } from './nav-list/nav-list.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskListComponent
+    NavListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NoopAnimationsModule
   ],
-  providers: [TaskService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
