@@ -1,0 +1,54 @@
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a (click)="setShowForm()" class="btn btn-info">Add List</a>
+            </li>
+            <li class="nav-item" *ngFor="let tasksList of tasksLists">
+              <a class="nav-link" [ngClass]="{'active': tasksList == selectedList}" (click)="setSelectedComp(tasksList.tasksListId)">{{ tasksList.name }}</a>
+            </li>
+          </ul>
+    </div>
+    <div class="card-body">
+        <!-- Form -->
+        <div *ngIf="showForm">
+            <div class="card-body">
+              <form (ngSubmit)="onSubmitList()" #taskForm="ngForm">
+                <div class="form-group">
+                  <h3 for="taskToDo">Add a list</h3>
+                  <input type="text" [(ngModel)]="formTasksList.name" 
+                    class="form-control" 
+                    name="name" 
+                    placeholder="Enter a name"
+                    required #name="ngModel">
+                </div>
+                <button type="submit" [disabled]="!taskForm.form.valid" 
+                  class="btn btn-info">Add list</button>
+              </form>
+            </div>
+        </div>
+
+        <!-- List -->
+        <table class="table table-bordered table-striped" *ngIf="showList">
+            <tbody>
+            <tr *ngFor="let task of selectedList.tasksList">
+                <td class="col-md-1"><input type="checkbox" [(ngModel)]="task.done" (change)="checkTask(task.id, task.done)" /></td>
+                <td style="text-align: left;">{{ task.taskToDo }}</td>
+                <td class="col-md-2"><button (click)="deleteTask(task.id)" class="btn btn-danger">Delete task</button></td>
+            </tr>
+            <tr>
+                <td style="padding: 0px;" colspan="2" scope="colgroup">
+                    <input type="text" [(ngModel)]="formTask.taskToDo" 
+                        name="taskToDo" 
+                        placeholder="Task to do">
+                </td>
+                <td class="col-md-2"><button (click)="onSubmitTask()" class="btn btn-secondary">Add task</button></td>
+            </tr>
+            <tr>
+                <td colspan="3"><button (click)="deleteCurrentTasksList()" class="btn btn-danger">Delete this list</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
