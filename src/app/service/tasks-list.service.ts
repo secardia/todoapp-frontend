@@ -14,14 +14,17 @@ export class TasksListService {
     this.rootURL = '/api';
   }
 
+  // Get all the tasks lists
   listTasksLists(): Observable<TasksList[]> {
     return this.http.get<TasksList[]>(this.rootURL + '/taskslists');
   }
 
+  // Save the tasks list
   saveTasksList(tasksList: TasksList): Observable<TasksList> {
     return this.http.post<TasksList>(this.rootURL + '/savetasklist', tasksList);
   }
 
+  // Delete the tasks list
   deleteTasksList(tasksListId: string) {
     return this.http.delete<TasksList>(this.rootURL + '/deletetaskslist?tasksListId='+ tasksListId);
   }

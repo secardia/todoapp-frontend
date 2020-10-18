@@ -31,30 +31,29 @@ export class NavListComponent implements OnInit {
     this.formTask = new Task();
   }
 
+  // Get the tasks lists from de server
   setTasksLists(): void {
     this.tasksListService.listTasksLists().subscribe(data => {
       this.tasksLists = data;
     });
   }
 
-  setShowForm(): void {
+  // Set the values when click on "Add list"
+  setShowFormAddList(): void {
     this.showForm = true;
     this.showList = false;
+    this.selectedList = null;
   }
 
-  setSelectedComp(selectedListId: string) {
-    /*if (this.selectedList != undefined && this.selectedList != null) {
-      document.getElementById(this.selectedList.tasksListId).classList.remove("active");
-    }*/
+  // Update the selected list when click on a list
+  setSelectedList(selectedListId: string) {
     this.selectedList = this.tasksLists.find(value => value.tasksListId == selectedListId);
-    //document.getElementById(this.selectedList.tasksListId).classList.add("active");
     this.showForm = false;
     this.showList = true;
   }
 
+  // Add the list on server and to the tasks lists when click on "Add list"
   onSubmitList() {
-    var tmpNewList = new TasksList();
-    tmpNewList.tasksList = [];
     this.tasksListService.saveTasksList(this.formTasksList).subscribe(newList => {
       this.tasksLists.push(newList);
     });
@@ -62,6 +61,7 @@ export class NavListComponent implements OnInit {
     this.showForm = false;
   }
 
+  // Add the task to the list, update the list on the server and on vars
   onSubmitTask() {
     this.selectedList.tasksList.push(this.formTask);
     this.tasksListService.saveTasksList(this.selectedList).subscribe(updatedList => {
@@ -69,14 +69,11 @@ export class NavListComponent implements OnInit {
         var ind = this.tasksLists.indexOf(this.selectedList);
         this.tasksLists[ind] = updatedList;
         this.selectedList = updatedList;
-        // Set "active" again because of refresh
-        //document.getElementById(this.selectedList.tasksListId).classList.add("active");
-        console.log("add active to id "+this.selectedList.tasksListId)
-
     });    
     this.formTask = new Task();
   }
 
+  // Delete the list on the server and on tasks lists
   deleteTask(taskId: string) {
     this.selectedList.tasksList = this.selectedList.tasksList.filter(task => task.id != taskId);
     this.tasksListService.saveTasksList(this.selectedList).subscribe(updatedList => {
@@ -84,12 +81,10 @@ export class NavListComponent implements OnInit {
       var ind = this.tasksLists.indexOf(this.selectedList);
       this.tasksLists[ind] = updatedList;
       this.selectedList = updatedList;
-      // Set "active" again because of refresh
-      //document.getElementById(this.selectedList.tasksListId).classList.add("active");
-      console.log("add active to id "+this.selectedList.tasksListId)
     });
   }
 
+  // Check the task, update the list on the server and on vars
   checkTask(taskId: string, done: boolean) {
     var ind = this.selectedList.tasksList.findIndex(value => value.id == taskId);
     this.selectedList.tasksList[ind].done = done;
@@ -99,11 +94,9 @@ export class NavListComponent implements OnInit {
         this.tasksLists[ind] = updatedList;
         this.selectedList = updatedList;
     });
-            // Set "active" again because of refresh
-            //document.getElementById(this.selectedList.tasksListId).classList.add("active");
-            console.log("add active to id "+this.selectedList.tasksListId)
   }
 
+  // Delete the task, update the list on the server and on vars
   deleteCurrentTasksList() {
     var result = confirm("Are you sure you want delete this list ?");
     if (result == true) {
