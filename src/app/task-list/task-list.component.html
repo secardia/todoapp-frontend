@@ -13,7 +13,7 @@
           <tr *ngFor="let task of tasks">
             <td>{{ task.id }}</td>
             <td>{{ task.taskToDo }}</td>
-            <td>{{ task.done }}</td>
+            <td><input type="checkbox" [(ngModel)]="task.done" (change)="checkTask(task.id, task.done)" /></td>
             <td><button (click)="deleteTask(task.id)" class="btn btn-danger">Delete task</button></td>
           </tr>
         </tbody>

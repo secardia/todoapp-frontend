@@ -25,4 +25,9 @@ export class TaskService {
   public deleteTask(id: number) {
     return this.http.delete(this.rootURL + '/deletetask?taskId=' + id);
   }
+
+  public checkTask(id: number, checked: boolean) {
+    const body = { title: 'Check task' };
+    return this.http.put<Task>(this.rootURL + '/checktask?taskId=' + id + "&checked=" + checked, body);
+  }
 }

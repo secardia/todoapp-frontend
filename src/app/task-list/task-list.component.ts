@@ -22,6 +22,11 @@ export class TaskListComponent implements OnInit {
     this.taskService.deleteTask(id).subscribe(() => this.setTasks());
   }
 
+  checkTask(id: number, checked: boolean): void {
+    //alert("change task "+id+" to "+checked);
+    this.taskService.checkTask(id, checked).subscribe(() => this.setTasks());
+  }
+
   setTasks(): void {
     this.taskService.findAll().subscribe(data => {
       this.tasks = data;
