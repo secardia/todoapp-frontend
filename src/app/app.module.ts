@@ -7,14 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
-import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskService } from './service/task.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskListComponent,
-    TaskFormComponent
+    TaskListComponent
   ],
   imports: [
     BrowserModule,

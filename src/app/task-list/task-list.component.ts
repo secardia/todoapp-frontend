@@ -10,12 +10,16 @@ import { TaskService } from '../service/task.service';
 })
 export class TaskListComponent implements OnInit {
 
+  // All tasks
   tasks: Task[];
+  // Task to add
+  task: Task;
 
   constructor(private router: Router, private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.setTasks();
+    this.task = new Task();
   }
 
   deleteTask(id: number): void {
@@ -23,7 +27,6 @@ export class TaskListComponent implements OnInit {
   }
 
   checkTask(id: number, checked: boolean): void {
-    //alert("change task "+id+" to "+checked);
     this.taskService.checkTask(id, checked).subscribe(() => this.setTasks());
   }
 
@@ -31,6 +34,15 @@ export class TaskListComponent implements OnInit {
     this.taskService.findAll().subscribe(data => {
       this.tasks = data;
     });
+  }
+
+  onSubmit() {
+    this.taskService.saveTask(this.task).subscribe(result => this.pushTask(result));
+  }
+
+  pushTask(task: Task) {
+    this.tasks.push(task);
+    this.task = new Task();
   }
 
 }
