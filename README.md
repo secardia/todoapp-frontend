@@ -1,6 +1,10 @@
-# Todoapp
+# Todoapp-frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
+
+## Requirements
+
+You will need to have Angular CLI installed.
 
 ## Run server
 
